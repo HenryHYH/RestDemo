@@ -18,7 +18,7 @@ namespace Client
                 // client.Authenticator = new HttpBasicAuthenticator(username, password);
 
                 //var request = new RestRequest("Account.svc/{id}", Method.GET);
-                var request = new RestRequest("Account.svc/", Method.GET);
+                var request = new RestRequest("Account", Method.GET);
                 //request.AddParameter("name", "value"); // adds to POST or URL querystring based on Method
                 //request.AddUrlSegment("id", "1"); // replaces matching token in request.Resource
 
@@ -35,7 +35,7 @@ namespace Client
                 //Response.Write(content);
 
                 var response = client.Execute<List<Account>>(request);
-                string a = "a";
+                Response.Write("Count = " + response.Data.Count);
             }
         }
 

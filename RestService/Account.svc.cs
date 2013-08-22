@@ -14,8 +14,9 @@ namespace RestService
         public Account()
         {
             accounts = new List<Model.Account>() { 
-                new Model.Account() { Id = "1", Name = "Hello world" },
-                new Model.Account() { Id = "2", Name = "Henry" }
+                new Model.Account() { Id = "1", Name = "Hello world" }, 
+                new Model.Account() { Id = "2", Name = "Henry" }, 
+                new Model.Account() { Id = "3", Name = "Test" } 
             };
         }
 
