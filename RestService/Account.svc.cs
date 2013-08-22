@@ -4,30 +4,46 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.ServiceModel.Activation;
 
 namespace RestService
 {
+    [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class Account : IAccount
     {
-        private IEnumerable<Model.Account> accounts { get; set; }
-
-        public Account()
-        {
-            accounts = new List<Model.Account>() { 
-                new Model.Account() { Id = "1", Name = "Hello world" }, 
-                new Model.Account() { Id = "2", Name = "Henry" }, 
-                new Model.Account() { Id = "3", Name = "Test" } 
-            };
-        }
+        private static IList<Model.Account> accounts = new List<Model.Account>() { new Model.Account() { Id = "1", Name = "Hello world" }, new Model.Account() { Id = "2", Name = "Henry" }, new Model.Account() { Id = "3", Name = "Test" } };
 
         public IEnumerable<Model.Account> Datas()
         {
             return accounts;
         }
 
-        public Model.Account Data(string id)
+        public Model.Account Get(string id)
         {
             return accounts.Where(x => x.Id == id).FirstOrDefault();
+        }
+
+        public void Create(Model.Account account)
+        {
+            accounts.Add(new Model.Account() { Id = (int.Parse(accounts.LastOrDefault().Id) + 1).ToString(), Name = account.Name });
+        }
+
+        public void Modify(string id, Model.Account account)
+        {
+            var data = Get(id);
+            if (null != data)
+            {
+                data.Name = account.Name;
+            }
+        }
+
+        public void Delete(string id)
+        {
+            var data = Get(id);
+            if (null != data)
+            {
+                accounts.Remove(data);
+            }
         }
     }
 }
