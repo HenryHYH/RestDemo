@@ -23,27 +23,30 @@ namespace RestService
             return accounts.Where(x => x.Id == id).FirstOrDefault();
         }
 
-        public void Create(Model.Account account)
+        public Model.ResponseMessage Create(Model.Account account)
         {
             accounts.Add(new Model.Account() { Id = (int.Parse(accounts.LastOrDefault().Id) + 1).ToString(), Name = account.Name });
+            return new Model.ResponseMessage() { Success = true, Message = "Created" };
         }
 
-        public void Modify(string id, Model.Account account)
+        public Model.ResponseMessage Modify(string id, Model.Account account)
         {
             var data = Get(id);
             if (null != data)
             {
                 data.Name = account.Name;
             }
+            return new Model.ResponseMessage() { Success = true, Message = "Modify success" };
         }
 
-        public void Delete(string id)
+        public Model.ResponseMessage Delete(string id)
         {
             var data = Get(id);
             if (null != data)
             {
                 accounts.Remove(data);
             }
+            return new Model.ResponseMessage() { Success = true, Message = "Deleted" };
         }
     }
 }

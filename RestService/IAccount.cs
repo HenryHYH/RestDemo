@@ -12,23 +12,23 @@ namespace RestService
     public interface IAccount
     {
         [OperationContract]
-        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "")]
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, UriTemplate = "")]
         IEnumerable<Model.Account> Datas();
 
         [OperationContract]
-        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "{id}")]
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, UriTemplate = "{id}")]
         Model.Account Get(string id);
 
         [OperationContract]
-        [WebInvoke(Method = "POST")]
-        void Create(Model.Account account);
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, UriTemplate = "")]
+        Model.ResponseMessage Create(Model.Account account);
 
         [OperationContract]
-        [WebInvoke(Method = "PUT", UriTemplate = "{id}")]
-        void Modify(string id, Model.Account account);
+        [WebInvoke(Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, UriTemplate = "{id}")]
+        Model.ResponseMessage Modify(string id, Model.Account account);
 
         [OperationContract]
-        [WebInvoke(Method = "DELETE", UriTemplate = "{id}")]
-        void Delete(string id);
+        [WebInvoke(Method = "DELETE", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, UriTemplate = "{id}")]
+        Model.ResponseMessage Delete(string id);
     }
 }

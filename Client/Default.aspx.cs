@@ -21,25 +21,7 @@ namespace Client
         private void BindData()
         {
             var client = new RestClient("http://127.0.0.1:6001/");
-            // client.Authenticator = new HttpBasicAuthenticator(username, password);
-
-            //var request = new RestRequest("Account.svc/{id}", Method.GET);
             var request = new RestRequest("Account", Method.GET);
-            //request.AddParameter("name", "value"); // adds to POST or URL querystring based on Method
-            //request.AddUrlSegment("id", "1"); // replaces matching token in request.Resource
-
-            // easily add HTTP Headers
-            //request.AddHeader("header", "value");
-
-            // add files to upload (works with compatible verbs)
-            //request.AddFile(path);
-
-            // execute the request
-            //RestResponse response = client.Execute(request);
-            //var response = client.Execute(request);
-            //var content = response.Content; // raw content as string
-            //Response.Write(content);
-
             var response = client.Execute<List<Account>>(request);
             rptAccount.DataSource = response.Data;
             rptAccount.DataBind();
@@ -47,17 +29,28 @@ namespace Client
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            Account account = new Account() { Id = txtId.Text.Trim(), Name = txtName.Text.Trim() };
+
             var client = new RestClient("http://127.0.0.1:6001/");
 
-            var request = new RestRequest("Account/{id}", Method.DELETE);
+            IRestRequest request = null;
 
-            //request.RootElement = "Account";
-            //request.AddParameter("id", txtId.Text.Trim());
-            //request.AddParameter("name", txtName.Text.Trim());
-            request.AddUrlSegment("id", "1");
+            if ("0" == account.Id)
+            {
+                request = new RestRequest("Account", Method.POST);
+            }
+            else
+            {
+                request = new RestRequest("Account/{id}", Method.PUT);
+                request.AddUrlSegment("id", account.Id);
+            }
+
+            request.RequestFormat = DataFormat.Json;
+            request.JsonSerializer = new CustomConverter { ContentType = "application/json" };
+            request.AddBody(account);
 
             var response = client.Execute(request);
-            Response.Write(response.Content);
+            BindData();
         }
 
         protected void lbtnDelete_Click(object sender, EventArgs e)
@@ -68,8 +61,23 @@ namespace Client
             request.AddUrlSegment("id", (sender as LinkButton).CommandArgument);
 
             var response = client.Execute(request);
-            Response.Write(response.Content);
             BindData();
+        }
+
+        public class CustomConverter : RestSharp.Serializers.ISerializer
+        {
+            public string ContentType { get; set; }
+
+            public string DateFormat { get; set; }
+
+            public string Namespace { get; set; }
+
+            public string RootElement { get; set; }
+
+            public string Serialize(object obj)
+            {
+                return new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(obj);
+            }
         }
 
         private class Accounts : List<Account>
@@ -82,3 +90,10 @@ namespace Client
         }
     }
 }
+
+/*
+           var client = new System.Net.WebClient();
+           //var update = client.UploadString("http://127.0.0.1:6001/Account/1", "PUT", string.Empty);
+           var update = client.UploadString("http://127.0.0.1:6001/Account", "POST", string.Empty);
+           Response.Write("Result = " + update);
+            */
