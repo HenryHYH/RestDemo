@@ -22,7 +22,10 @@ namespace RestService
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
+            HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            HttpContext.Current.Response.Cache.SetNoStore();
 
+            EnableCrossDmainAjaxCall();
         }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
@@ -43,6 +46,11 @@ namespace RestService
         protected void Application_End(object sender, EventArgs e)
         {
 
+        }
+
+        private void EnableCrossDmainAjaxCall()
+        {
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", string.Format("http://{0}:9648", HttpContext.Current.Request.Url.Host));
         }
 
         private void RegisterRoutes()
