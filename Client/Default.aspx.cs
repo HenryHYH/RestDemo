@@ -29,20 +29,21 @@ namespace Client
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Account account = new Account() { Id = txtId.Text.Trim(), Name = txtName.Text.Trim() };
+            //RequestData account = new RequestData { Account = new Account { Id = txtId.Text.Trim(), Name = txtName.Text.Trim() } };
+            var account = new Account { Id = txtId.Text.Trim(), Name = txtName.Text.Trim() };
 
             var client = new RestClient("http://127.0.0.1:6001/");
 
             IRestRequest request = null;
 
-            if ("0" == account.Id)
+            if ("0" == txtId.Text.Trim())
             {
                 request = new RestRequest("Account", Method.POST);
             }
             else
             {
                 request = new RestRequest("Account/{id}", Method.PUT);
-                request.AddUrlSegment("id", account.Id);
+                request.AddUrlSegment("id", txtId.Text.Trim());
             }
 
             request.RequestFormat = DataFormat.Json;
@@ -50,6 +51,7 @@ namespace Client
             request.AddBody(account);
 
             var response = client.Execute(request);
+            Response.Write(response.ErrorMessage);
             BindData();
         }
 
@@ -96,6 +98,11 @@ namespace Client
             {
                 return new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(obj);
             }
+        }
+
+        private class RequestData
+        {
+            public Account Account { get; set; }
         }
 
         private class Accounts : List<Account>
