@@ -39,6 +39,8 @@
                                 <%# Eval("Name") %>
                             </td>
                             <td>
+                                <asp:LinkButton ID="lbtnEdit" runat="server" Text="Edit" OnClick="lbtnEdit_Click"
+                                    CommandArgument='<%# Eval("Id") %>'></asp:LinkButton>
                                 <asp:LinkButton ID="lbtnDelete" runat="server" Text="Delete" OnClick="lbtnDelete_Click"
                                     CommandArgument='<%# Eval("Id") %>'></asp:LinkButton>
                             </td>

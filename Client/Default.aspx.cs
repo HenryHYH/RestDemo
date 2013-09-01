@@ -46,11 +46,24 @@ namespace Client
             }
 
             request.RequestFormat = DataFormat.Json;
-            request.JsonSerializer = new CustomConverter { ContentType = "application/json" };
+            request.JsonSerializer = new JsonSerializer();
             request.AddBody(account);
 
             var response = client.Execute(request);
             BindData();
+        }
+
+        protected void lbtnEdit_Click(object sender, EventArgs e)
+        {
+            var client = new RestClient("http://127.0.0.1:6001/");
+
+            var request = new RestRequest("Account/{id}", Method.GET);
+            request.AddUrlSegment("id", (sender as LinkButton).CommandArgument);
+
+            var response = client.Execute<Account>(request);
+
+            txtId.Text = response.Data.Id;
+            txtName.Text = response.Data.Name;
         }
 
         protected void lbtnDelete_Click(object sender, EventArgs e)
@@ -64,8 +77,13 @@ namespace Client
             BindData();
         }
 
-        public class CustomConverter : RestSharp.Serializers.ISerializer
+        public class JsonSerializer : RestSharp.Serializers.ISerializer
         {
+            public JsonSerializer()
+            {
+                ContentType = "application/json";
+            }
+
             public string ContentType { get; set; }
 
             public string DateFormat { get; set; }
@@ -90,10 +108,3 @@ namespace Client
         }
     }
 }
-
-/*
-           var client = new System.Net.WebClient();
-           //var update = client.UploadString("http://127.0.0.1:6001/Account/1", "PUT", string.Empty);
-           var update = client.UploadString("http://127.0.0.1:6001/Account", "POST", string.Empty);
-           Response.Write("Result = " + update);
-            */
