@@ -55,15 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Ajax.aspx" />
-    <Content Include="Bootstrap.aspx" />
-    <Content Include="bootstrap\css\bootstrap-responsive.css" />
-    <Content Include="bootstrap\css\bootstrap-responsive.min.css" />
-    <Content Include="bootstrap\css\bootstrap.css" />
-    <Content Include="bootstrap\css\bootstrap.min.css" />
-    <Content Include="bootstrap\img\glyphicons-halflings-white.png" />
-    <Content Include="bootstrap\img\glyphicons-halflings.png" />
-    <Content Include="bootstrap\js\bootstrap.js" />
-    <Content Include="bootstrap\js\bootstrap.min.js" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
@@ -83,13 +74,6 @@
     </Compile>
     <Compile Include="Ajax.aspx.designer.cs">
       <DependentUpon>Ajax.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Bootstrap.aspx.cs">
-      <DependentUpon>Bootstrap.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Bootstrap.aspx.designer.cs">
-      <DependentUpon>Bootstrap.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
