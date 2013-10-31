@@ -18,9 +18,11 @@ namespace Client
             }
         }
 
+        private readonly string URL = "http://127.0.0.1:6002/";
+
         private void BindData()
         {
-            var client = new RestClient("http://127.0.0.1:6001/");
+            var client = new RestClient(URL);
             var request = new RestRequest("Account", Method.GET);
             var response = client.Execute<List<Account>>(request);
             rptAccount.DataSource = response.Data;
@@ -32,7 +34,7 @@ namespace Client
             //RequestData account = new RequestData { Account = new Account { Id = txtId.Text.Trim(), Name = txtName.Text.Trim() } };
             var account = new Account { Id = txtId.Text.Trim(), Name = txtName.Text.Trim() };
 
-            var client = new RestClient("http://127.0.0.1:6001/");
+            var client = new RestClient(URL);
 
             IRestRequest request = null;
 
@@ -57,7 +59,7 @@ namespace Client
 
         protected void lbtnEdit_Click(object sender, EventArgs e)
         {
-            var client = new RestClient("http://127.0.0.1:6001/");
+            var client = new RestClient(URL);
 
             var request = new RestRequest("Account/{id}", Method.GET);
             request.AddUrlSegment("id", (sender as LinkButton).CommandArgument);
@@ -70,7 +72,7 @@ namespace Client
 
         protected void lbtnDelete_Click(object sender, EventArgs e)
         {
-            var client = new RestClient("http://127.0.0.1:6001/");
+            var client = new RestClient(URL);
 
             var request = new RestRequest("Account/{id}", Method.DELETE);
             request.AddUrlSegment("id", (sender as LinkButton).CommandArgument);

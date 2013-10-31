@@ -69,6 +69,8 @@
     {{/for}}
     </script>
     <script type="text/javascript">
+        var url = "http://127.0.0.1:6002/Account/";
+
         $(function () {
             BindData();
 
@@ -77,13 +79,13 @@
                 var name = $("#txtName").val();
                 var data = { Id: id, Name: name };
                 var type = "0" == id ? "POST" : "PUT";
-                var url = "http://127.0.0.1:6001/Account/";
+                var tmpUrl = url;
                 if ("0" != id) {
-                    url += id;
+                    tmpUrl += id;
                 }
 
                 $.ajax({
-                    url: url,
+                    url: tmpUrl,
                     type: type,
                     cache: false,
                     data: JSON.stringify(data),
@@ -101,7 +103,7 @@
 
         function DeleteData(id) {
             $.ajax({
-                url: "http://127.0.0.1:6001/Account/" + id,
+                url: url + id,
                 type: "DELETE",
                 cache: false,
                 dataType: "json",
@@ -117,7 +119,7 @@
 
         function EditData(id) {
             $.ajax({
-                url: "http://127.0.0.1:6001/Account/" + id,
+                url: url + id,
                 type: "GET",
                 dataType: "json",
                 success: function (data) {
@@ -132,7 +134,7 @@
 
         function BindData() {
             $.ajax({
-                url: "http://127.0.0.1:6001/Account/",
+                url: url,
                 type: "GET",
                 dataType: "json",
                 success: function (data) {
