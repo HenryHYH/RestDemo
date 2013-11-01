@@ -74,6 +74,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IAccount.cs" />
+    <Compile Include="IResource.cs" />
     <Compile Include="Model\Account.cs" />
     <Compile Include="Model\ResponseMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -25,7 +25,7 @@ namespace RestService
 
         public Model.ResponseMessage Create(Model.Account account)
         {
-            accounts.Add(new Model.Account() { Id = (int.Parse(accounts.LastOrDefault().Id) + 1).ToString(), Name = account.Name });
+            accounts.Add(new Model.Account() { Id = null == accounts.LastOrDefault() ? "1" : (int.Parse(accounts.LastOrDefault().Id) + 1).ToString(), Name = account.Name });
             return new Model.ResponseMessage() { Success = true, Message = "Created" };
         }
 
