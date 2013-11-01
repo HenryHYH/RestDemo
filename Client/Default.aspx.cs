@@ -18,7 +18,7 @@ namespace Client
             }
         }
 
-        private readonly string URL = "http://127.0.0.1:6002/";
+        private readonly string URL = "http://127.0.0.1:6001/";
 
         private void BindData()
         {

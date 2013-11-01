@@ -50,17 +50,14 @@ namespace RestService
 
         private void EnableCrossDmainAjaxCall()
         {
-            //HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", string.Format("http://{0}:9648", HttpContext.Current.Request.Url.Host));            
-            //HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");            
-            /*
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");
             if (HttpContext.Current.Request.HttpMethod == "OPTIONS")
             {
-                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
                 HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers", "Content-Type, Accept");
                 HttpContext.Current.Response.AddHeader("Access-Control-Max-Age", "1728000");
                 HttpContext.Current.Response.End();
-            } 
-             */
+            }
         }
 
         private void RegisterRoutes()

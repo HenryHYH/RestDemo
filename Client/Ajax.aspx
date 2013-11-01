@@ -69,7 +69,7 @@
     {{/for}}
     </script>
     <script type="text/javascript">
-        var url = "http://127.0.0.1:6002/Account/";
+        var url = "http://127.0.0.1:6001/Account/";
 
         $(function () {
             BindData();
